@@ -76,12 +76,12 @@ var module, define, renderjson=(function() {
     var prepend = function(el, child) {
         el.insertBefore(child, el.firstChild);
         return el;
-    }
+    };
     var isempty = function(obj, pl) { var keys = pl || Object.keys(obj);
                                       for (var i in keys) if (Object.hasOwnProperty.call(obj, keys[i])) return false;
-                                      return true; }
-    var text = function(txt) { return document.createTextNode(txt) };
-    var div = function() { return document.createElement("div") };
+                                      return true; };
+    var text = function(txt) { return document.createTextNode(txt); };
+    var div = function() { return document.createElement("div"); };
     var span = function(classname) { var s = document.createElement("span");
                                      if (classname) s.className = classname;
                                      return s; };
@@ -149,12 +149,13 @@ var module, define, renderjson=(function() {
 
         return disclosure("{", "...", "}", "object", function () {
             var os = append(span("object"), themetext("object syntax", "{", null, "\n"));
-            for (var k in json) var last = k;
+            var last;
+            for (var k in json) last = k;
             var keys = options.property_list || Object.keys(json);
             if (options.sort_objects)
                 keys = keys.sort();
             for (var i in keys) {
-                var k = keys[i];
+                k = keys[i];
                 if (!(k in json)) continue;
                 append(os, themetext(null, indent+"    ", "key", '"'+k+'"', "object syntax", ': '),
                        _renderjson(options.replacer.call(json, k, json[k]), indent+"    ", true, show_level-1, options),
@@ -173,7 +174,7 @@ var module, define, renderjson=(function() {
         var pre = append(document.createElement("pre"), _renderjson(json, "", false, options.show_to_level, options));
         pre.className = "renderjson";
         return pre;
-    }
+    };
     renderjson.set_icons = function(show, hide) { renderjson.options.show = show;
                                                   renderjson.options.hide = hide;
                                                   return renderjson; };
@@ -204,5 +205,5 @@ var module, define, renderjson=(function() {
     return renderjson;
 })();
 
-if (define) define({renderjson:renderjson})
+if (define) define({renderjson:renderjson});
 else (module||{}).exports = (window||{}).renderjson = renderjson;
